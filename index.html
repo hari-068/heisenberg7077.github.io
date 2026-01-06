@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Portfolio of Hariprasath - Cybersecurity Analyst & Ethical Hacker">
-  <title>Hariprasath | Cybersecurity Portfolio</title>
+  <title>Hariprasath | SYSTEM_OVERRIDE</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
   <script>
@@ -19,14 +17,15 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
+            mono: ['"Fira Code"', 'monospace'], // Forced Monospace everywhere
           },
           colors: {
-            cyber: {
-              dark: '#0f172a',
-              light: '#f8fafc',
-              accent: '#2563eb', // Royal Blue
+            hacker: {
+              black: '#050505',
+              dark: '#0a0f0d',
+              green: '#00ff41',
+              dim: '#008f11',
+              alert: '#ff003c'
             }
           }
         }
@@ -35,105 +34,251 @@
   </script>
 
   <style>
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    /* --- CORE HACKER THEME SETTINGS --- */
+    :root {
+      --neon-green: #00ff41;
+      --dark-green: #008f11;
+      --bg-black: #050505;
+      --glass: rgba(0, 20, 0, 0.7);
     }
+
+    body {
+      background-color: var(--bg-black);
+      color: #e0e0e0;
+      font-family: 'Fira Code', monospace;
+      overflow-x: hidden;
+      cursor: crosshair; /* Hacker cursor */
+    }
+
+    /* --- 1. CRT MONITOR OVERLAY EFFECT --- */
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.2)
+      );
+      background-size: 100% 4px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: scrollScan 10s linear infinite;
+    }
+    
+    .crt-flicker {
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: rgba(18, 16, 16, 0.05);
+      opacity: 0;
+      z-index: 9998;
+      pointer-events: none;
+      animation: flicker 0.15s infinite;
+    }
+
+    @keyframes scrollScan { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
+    @keyframes flicker { 0% { opacity: 0.02; } 50% { opacity: 0.05; } 100% { opacity: 0.02; } }
+
+    /* --- 2. GLITCH TEXT ANIMATION --- */
+    .glitch-text {
+      position: relative;
+      color: var(--neon-green);
+    }
+    .glitch-text::before, .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+    }
+    .glitch-text::before {
+      left: 2px;
+      text-shadow: -1px 0 #ff00c1;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim 5s infinite linear alternate-reverse;
+    }
+    .glitch-text::after {
+      left: -2px;
+      text-shadow: -1px 0 #00fff9;
+      clip: rect(44px, 450px, 56px, 0);
+      animation: glitch-anim2 5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+      0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
+      5% { clip: rect(70px, 9999px, 11px, 0); transform: skew(0.2deg); }
+      10% { clip: rect(6px, 9999px, 83px, 0); transform: skew(0.04deg); }
+      15% { clip: rect(33px, 9999px, 13px, 0); transform: skew(0.1deg); }
+      20% { clip: rect(89px, 9999px, 92px, 0); transform: skew(0.79deg); }
+      100% { clip: rect(12px, 9999px, 68px, 0); transform: skew(0.2deg); }
+    }
+    @keyframes glitch-anim2 {
+      0% { clip: rect(65px, 9999px, 96px, 0); transform: skew(0.3deg); }
+      100% { clip: rect(2px, 9999px, 18px, 0); transform: skew(0.8deg); }
+    }
+
+    /* --- 3. CUSTOM SCROLLBAR --- */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-black); }
+    ::-webkit-scrollbar-thumb { background: var(--dark-green); border-radius: 2px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
+
+    /* --- 4. HOLOGRAPHIC CARD BORDERS --- */
+    .cyber-card {
+      background: rgba(10, 20, 15, 0.6);
+      border: 1px solid #1a2f1a;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+      transition: 0.5s;
+    }
+    .cyber-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+      transform: translateY(-5px);
+    }
+    .cyber-card:hover::before { left: 100%; }
+
+    /* --- 5. NEON BUTTONS --- */
+    .btn-neon {
+      background: transparent;
+      color: var(--neon-green);
+      border: 1px solid var(--neon-green);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .btn-neon:hover {
+      background: var(--neon-green);
+      color: black;
+      box-shadow: 0 0 20px var(--neon-green);
+    }
+
+    /* --- 6. NAV BLUR --- */
+    .glass-nav {
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--dark-green);
+    }
+
+    /* Utility Helpers */
+    .text-shadow-neon { text-shadow: 0 0 10px var(--neon-green); }
     .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-    
-    /* Cursor blinking for typewriter effect */
     .cursor-blink { animation: blink 1s step-end infinite; }
     @keyframes blink { 50% { opacity: 0; } }
+
+    /* Matrix Canvas Layer */
+    #matrix-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: -1;
+      opacity: 0.15;
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-200 selection:text-blue-900">
+<body class="font-mono antialiased selection:bg-green-900 selection:text-white">
 
-  <header class="fixed w-full top-0 z-50 glass-nav border-b border-slate-200 shadow-sm transition-all duration-300">
+  <div class="scanlines"></div>
+  <div class="crt-flicker"></div>
+  <canvas id="matrix-canvas"></canvas>
+
+  <header class="fixed w-full top-0 z-50 glass-nav shadow-lg shadow-green-900/10 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-      <a href="#" class="text-2xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-        <i class="fa-solid fa-shield-halved text-blue-600"></i>
-        <span>Hariprasath</span>
+      <a href="#" class="text-xl font-bold text-hacker-green tracking-tighter flex items-center gap-2 group">
+        <i class="fa-solid fa-terminal group-hover:animate-pulse"></i>
+        <span>root@hariprasath:~#</span>
       </a>
 
-      <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-        <a href="#about" class="hover:text-blue-600 transition">About</a>
-        <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
-        <a href="#projects" class="hover:text-blue-600 transition">Projects</a>
-        <a href="#experience" class="hover:text-blue-600 transition">Experience</a>
+      <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+        <a href="#about" class="hover:text-hacker-green hover:text-shadow-neon transition duration-300">./About</a>
+        <a href="#skills" class="hover:text-hacker-green hover:text-shadow-neon transition duration-300">./Skills</a>
+        <a href="#projects" class="hover:text-hacker-green hover:text-shadow-neon transition duration-300">./Projects</a>
+        <a href="#experience" class="hover:text-hacker-green hover:text-shadow-neon transition duration-300">./Exp</a>
         
-        <a href="#contact" class="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition">Contact</a>
-        <button id="loginBtn" class="bg-slate-900 text-white px-5 py-2 rounded-lg hover:bg-slate-800 transition shadow-lg shadow-blue-500/20 flex items-center gap-2">
-          <i class="fa-solid fa-terminal text-xs"></i> Demo Login
+        <a href="#contact" class="btn-neon px-4 py-2 rounded">
+          Initialize_Comms
+        </a>
+        <button id="loginBtn" class="bg-gray-800 text-white px-5 py-2 rounded hover:bg-hacker-green hover:text-black transition border border-gray-600 flex items-center gap-2">
+          <i class="fa-solid fa-user-secret text-xs"></i> Auth
         </button>
       </div>
 
-      <button class="md:hidden text-2xl text-slate-800"><i class="fa-solid fa-bars"></i></button>
+      <button class="md:hidden text-2xl text-hacker-green"><i class="fa-solid fa-bars"></i></button>
     </div>
   </header>
 
   <section class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-      <div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-[-10%] left-[-10%] w-72 h-72 bg-indigo-400/20 rounded-full blur-3xl"></div>
-    </div>
-
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <div class="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 rounded-full border border-blue-100 animate__animated animate__fadeInDown">
-        Available for Hire
+    <div class="max-w-4xl mx-auto px-6 text-center z-10">
+      <div class="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-[0.2em] text-hacker-green border border-hacker-green animate__animated animate__fadeInDown bg-green-900/20">
+        SYSTEM_ONLINE: READY_FOR_DEPLOYMENT
       </div>
-      <h1 class="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight animate__animated animate__fadeInUp">
-        Hi, I'm Hariprasath.
+      
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight animate__animated animate__fadeInUp glitch-text" data-text="HARIPRASATH">
+        HARIPRASATH
       </h1>
-      <h2 class="text-xl md:text-3xl text-slate-600 font-mono mb-8 h-8 animate__animated animate__fadeInUp animate__delay-1s">
-        I am a <span id="typewriter" class="text-blue-600 font-bold"></span><span class="cursor-blink">|</span>
+      
+      <h2 class="text-xl md:text-3xl text-gray-400 font-mono mb-8 h-8 animate__animated animate__fadeInUp animate__delay-1s">
+        &gt; Execute: <span id="typewriter" class="text-hacker-green font-bold text-shadow-neon"></span><span class="cursor-blink">_</span>
       </h2>
-      <p class="text-lg text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed animate__animated animate__fadeInUp animate__delay-1s">
-        Passionate about ethical hacking, network defense, and securing digital infrastructures. 
-        Transforming vulnerabilities into fortified systems.
+      
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed animate__animated animate__fadeInUp animate__delay-1s border-l-2 border-hacker-dim pl-4 text-left font-light">
+        // Initiating protocol: Ethical Hacking & Network Defense.<br>
+        // Target: Transforming vulnerabilities into fortified assets.<br>
+        // Status: Scanning for threats...
       </p>
       
       <div class="flex flex-col sm:flex-row justify-center gap-4 animate__animated animate__fadeInUp animate__delay-1s">
-        <a href="#projects" class="bg-blue-600 text-white px-8 py-3.5 rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-600/30 font-medium">
-          View Projects
+        <a href="#projects" class="btn-neon px-8 py-3.5 font-bold">
+          <i class="fa-solid fa-code-branch mr-2"></i> Access Projects
         </a>
-        <a href="https://github.com/heisenberg7077" target="_blank" class="flex items-center justify-center gap-2 bg-white text-slate-700 border border-slate-200 px-8 py-3.5 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition font-medium">
+        <a href="https://github.com/heisenberg7077" target="_blank" class="flex items-center justify-center gap-2 bg-transparent text-gray-300 border border-gray-600 px-8 py-3.5 hover:bg-gray-800 hover:border-white transition font-medium">
           <i class="fa-brands fa-github"></i> GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/hari-prasath-3ab198299" target="_blank" class="flex items-center justify-center gap-2 bg-white text-slate-700 border border-slate-200 px-8 py-3.5 rounded-lg hover:bg-slate-50 hover:border-slate-300 transition font-medium">
-          <i class="fa-brands fa-linkedin"></i> LinkedIn
         </a>
       </div>
     </div>
   </section>
 
-  <section id="about" class="py-24 bg-white">
+  <section id="about" class="py-24 relative border-t border-gray-900">
     <div class="max-w-6xl mx-auto px-6">
       <div class="grid md:grid-cols-2 gap-12 items-center fade-up">
-        <div class="relative">
-            <div class="aspect-square bg-slate-100 rounded-2xl overflow-hidden shadow-2xl relative z-10">
-                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Hariprasath&backgroundColor=e2e8f0" alt="Avatar" class="w-full h-full object-cover">
+        <div class="relative group">
+            <div class="aspect-square bg-black rounded overflow-hidden border border-hacker-dim shadow-[0_0_20px_rgba(0,255,65,0.1)] relative z-10 grayscale group-hover:grayscale-0 transition duration-500">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Hariprasath&backgroundColor=0a0f0d" alt="Avatar" class="w-full h-full object-cover">
+                <div class="absolute top-0 left-0 w-full h-1 bg-hacker-green opacity-50 animate-[scan_2s_linear_infinite]"></div>
             </div>
-            <div class="absolute -top-4 -left-4 w-full h-full border-2 border-blue-600 rounded-2xl -z-0"></div>
+            <div class="absolute -bottom-4 -right-4 w-full h-full border border-hacker-green -z-0"></div>
         </div>
         <div>
-          <h3 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">About Me</h3>
-          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Securing the Digital World, One Packet at a Time.</h2>
-          <p class="text-slate-600 text-lg leading-relaxed mb-6">
-            I’m currently pursuing a degree in **Cybersecurity**, bridging the gap between theoretical knowledge and real-world application. My focus lies in **Penetration Testing**, **Vulnerability Assessment**, and **Network Forensics**.
+          <h3 class="text-sm font-bold text-hacker-green uppercase tracking-widest mb-2">/usr/bin/whoami</h3>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Securing the Grid.</h2>
+          <p class="text-gray-400 text-lg leading-relaxed mb-6">
+            <span class="text-hacker-green">></span> Currently compiling a B.E. in <strong class="text-white">Cybersecurity</strong>. 
+            My architecture is built on Penetration Testing, Vuln Assessment, and Forensic Analysis.
           </p>
-          <p class="text-slate-600 leading-relaxed mb-6">
-            I actively participate in CTF challenges on platforms like TryHackMe and HackTheBox to sharpen my skills. Whether it's analyzing malware behavior or scripting custom automation tools in Python, I am driven by curiosity and a commitment to digital safety.
+          <p class="text-gray-400 leading-relaxed mb-6">
+            I execute CTF challenges on <span class="text-white bg-green-900/30 px-1">TryHackMe</span> & <span class="text-white bg-green-900/30 px-1">HackTheBox</span> to elevate privileges in my knowledge base. 
+            From malware analysis to Python automation, I operate where code meets security.
           </p>
           <div class="grid grid-cols-2 gap-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fa-solid fa-bug"></i></div>
-              <span class="font-medium text-slate-700">Ethical Hacking</span>
+            <div class="flex items-center gap-3 cyber-card p-3 rounded">
+              <i class="fa-solid fa-bug text-hacker-green"></i>
+              <span class="font-medium text-gray-300">White Hat</span>
             </div>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fa-solid fa-shield-virus"></i></div>
-              <span class="font-medium text-slate-700">Network Defense</span>
+            <div class="flex items-center gap-3 cyber-card p-3 rounded">
+              <i class="fa-solid fa-shield-virus text-hacker-green"></i>
+              <span class="font-medium text-gray-300">Blue Team</span>
             </div>
           </div>
         </div>
@@ -141,51 +286,50 @@
     </div>
   </section>
 
-  <section id="skills" class="py-24 bg-slate-50 fade-up">
+  <section id="skills" class="py-24 bg-hacker-dark fade-up border-t border-gray-900">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-slate-900">Technical Arsenal</h2>
-        <p class="text-slate-500 mt-4">Tools and technologies I use to audit and secure systems.</p>
+        <h2 class="text-3xl font-bold text-white">
+          <span class="text-hacker-green">sudo</span> apt-get install skills
+        </h2>
+        <p class="text-gray-500 mt-4 font-mono">Loading modules...</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
         
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-          <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 mb-6 text-xl">
+        <div class="cyber-card p-8 rounded-sm">
+          <div class="w-12 h-12 border border-hacker-green rounded flex items-center justify-center text-hacker-green mb-6 text-xl shadow-[0_0_10px_rgba(0,255,65,0.3)]">
             <i class="fa-brands fa-linux"></i>
           </div>
-          <h3 class="text-xl font-bold mb-4">Systems & Scripting</h3>
+          <h3 class="text-xl font-bold text-white mb-4">OS & Scripting</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Linux (Kali/Ubuntu)</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Bash Scripting</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Python</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">PowerShell</span>
+            <span class="px-2 py-1 border border-gray-700 text-hacker-green text-xs hover:bg-hacker-green hover:text-black cursor-pointer transition">Kali Linux</span>
+            <span class="px-2 py-1 border border-gray-700 text-hacker-green text-xs hover:bg-hacker-green hover:text-black cursor-pointer transition">Bash</span>
+            <span class="px-2 py-1 border border-gray-700 text-hacker-green text-xs hover:bg-hacker-green hover:text-black cursor-pointer transition">Python3</span>
           </div>
         </div>
 
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-red-600 mb-6 text-xl">
-            <i class="fa-solid fa-crosshairs"></i>
+        <div class="cyber-card p-8 rounded-sm">
+          <div class="w-12 h-12 border border-red-500 text-red-500 rounded flex items-center justify-center mb-6 text-xl shadow-[0_0_10px_rgba(255,0,0,0.3)]">
+            <i class="fa-solid fa-dragon"></i>
           </div>
-          <h3 class="text-xl font-bold mb-4">Offensive Security</h3>
+          <h3 class="text-xl font-bold text-white mb-4">Offensive Ops</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Burp Suite</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Metasploit</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Nmap</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">OWASP Top 10</span>
+            <span class="px-2 py-1 border border-gray-700 text-red-400 text-xs hover:bg-red-500 hover:text-white cursor-pointer transition">Burp Suite</span>
+            <span class="px-2 py-1 border border-gray-700 text-red-400 text-xs hover:bg-red-500 hover:text-white cursor-pointer transition">Metasploit</span>
+            <span class="px-2 py-1 border border-gray-700 text-red-400 text-xs hover:bg-red-500 hover:text-white cursor-pointer transition">Nmap</span>
           </div>
         </div>
 
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-6 text-xl">
+        <div class="cyber-card p-8 rounded-sm">
+          <div class="w-12 h-12 border border-blue-500 text-blue-500 rounded flex items-center justify-center mb-6 text-xl shadow-[0_0_10px_rgba(0,0,255,0.3)]">
             <i class="fa-solid fa-network-wired"></i>
           </div>
-          <h3 class="text-xl font-bold mb-4">Network Analysis</h3>
+          <h3 class="text-xl font-bold text-white mb-4">Net Analysis</h3>
           <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Wireshark</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Tcpdump</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Firewall Config</span>
-            <span class="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">Snort</span>
+            <span class="px-2 py-1 border border-gray-700 text-blue-400 text-xs hover:bg-blue-500 hover:text-white cursor-pointer transition">Wireshark</span>
+            <span class="px-2 py-1 border border-gray-700 text-blue-400 text-xs hover:bg-blue-500 hover:text-white cursor-pointer transition">Tcpdump</span>
+            <span class="px-2 py-1 border border-gray-700 text-blue-400 text-xs hover:bg-blue-500 hover:text-white cursor-pointer transition">Snort</span>
           </div>
         </div>
 
@@ -193,106 +337,83 @@
     </div>
   </section>
 
-  <section id="experience" class="py-24 bg-white fade-up">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold text-slate-900">Experience & Education</h2>
-      </div>
-
-      <div class="relative border-l-2 border-slate-200 ml-4 md:ml-6 space-y-12">
-        
-        <div class="relative pl-8 md:pl-12">
-          <div class="absolute -left-[9px] top-0 w-5 h-5 bg-blue-600 rounded-full border-4 border-white shadow-sm"></div>
-          
-          <span class="text-sm font-bold text-blue-600 tracking-wider uppercase mb-1 block">Present</span>
-          <h3 class="text-xl font-bold text-slate-900">B.E. in Cybersecurity</h3>
-          <p class="text-slate-500 font-medium mb-3">Sri Shakthi Institute of Engineering and Technology</p>
-          <p class="text-slate-600">
-            Specializing in network security architecture and secure coding practices. 
-            Leading peer study groups on penetration testing methodologies and actively participating in inter-college hackathons.
-          </p>
-        </div>
-
-        <div class="relative pl-8 md:pl-12">
-            <div class="absolute -left-[9px] top-0 w-5 h-5 bg-slate-300 rounded-full border-4 border-white"></div>
-            <span class="text-sm font-bold text-slate-400 tracking-wider uppercase mb-1 block">2023 - Present</span>
-            <h3 class="text-xl font-bold text-slate-900">Independent Security Researcher</h3>
-            <p class="text-slate-500 font-medium mb-3">Self-Paced Learning</p>
-            <p class="text-slate-600">
-              Completed learning paths on TryHackMe (Top 10%) and solved machines on HackTheBox. 
-              Developed custom scripts to automate reconnaissance phases.
-            </p>
-          </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="py-24 bg-slate-50 fade-up">
+  <section id="projects" class="py-24 bg-black relative fade-up border-t border-gray-900">
     <div class="max-w-6xl mx-auto px-6">
-      <div class="flex justify-between items-end mb-12">
+      <div class="flex justify-between items-end mb-12 border-b border-gray-800 pb-4">
         <div>
-          <h2 class="text-3xl font-bold text-slate-900">Featured Projects</h2>
-          <p class="text-slate-500 mt-2">Code I've written and challenges I've solved.</p>
+          <h2 class="text-3xl font-bold text-white">./Repositories</h2>
+          <p class="text-gray-500 mt-2 text-sm">Deployed payloads & scripts.</p>
         </div>
-        <a href="https://github.com/heisenberg7077" class="hidden md:flex items-center gap-2 text-blue-600 font-semibold hover:underline">
-          View all on GitHub <i class="fa-solid fa-arrow-right"></i>
+        <a href="https://github.com/heisenberg7077" class="hidden md:flex items-center gap-2 text-hacker-green font-semibold hover:text-white transition">
+          View All <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full border border-slate-100">
-          <div class="h-2 bg-blue-600 w-full"></div>
+        <div class="cyber-card group flex flex-col h-full rounded">
+          <div class="h-1 bg-hacker-green w-full shadow-[0_0_10px_#00ff41]"></div>
           <div class="p-6 flex-1 flex flex-col">
             <div class="flex justify-between items-start mb-4">
-              <h3 class="font-bold text-xl text-slate-900 group-hover:text-blue-600 transition">Python Port Scanner</h3>
-              <i class="fa-brands fa-python text-slate-300 text-2xl"></i>
+              <h3 class="font-bold text-xl text-white group-hover:text-hacker-green transition">Python Port Scanner</h3>
+              <i class="fa-brands fa-python text-gray-600 text-2xl group-hover:text-hacker-green"></i>
             </div>
-            <p class="text-slate-600 mb-6 text-sm flex-1">
-              A multi-threaded command-line tool built with Python's socket library to identify open ports and services on target hosts efficiently.
+            <p class="text-gray-400 mb-6 text-sm flex-1 font-light">
+              > Multi-threaded CLI tool.<br>
+              > Uses socket lib.<br>
+              > Detects open services.
             </p>
             <div class="flex gap-2 mb-6">
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">Python</span>
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">Sockets</span>
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">CLI</span>
+              <span class="text-xs font-mono text-hacker-dim">[Python]</span>
+              <span class="text-xs font-mono text-hacker-dim">[Sockets]</span>
             </div>
-            <a href="#" class="w-full text-center py-2 rounded border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition text-sm font-medium">View Code</a>
+            <a href="#" class="w-full text-center py-2 border border-gray-700 text-hacker-green hover:bg-hacker-green hover:text-black transition text-sm font-bold uppercase tracking-wider">
+              Execute
+            </a>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full border border-slate-100">
-          <div class="h-2 bg-indigo-600 w-full"></div>
+        <div class="cyber-card group flex flex-col h-full rounded">
+          <div class="h-1 bg-blue-600 w-full shadow-[0_0_10px_blue]"></div>
           <div class="p-6 flex-1 flex flex-col">
             <div class="flex justify-between items-start mb-4">
-              <h3 class="font-bold text-xl text-slate-900 group-hover:text-indigo-600 transition">CTF Writeups</h3>
-              <i class="fa-solid fa-flag text-slate-300 text-2xl"></i>
+              <h3 class="font-bold text-xl text-white group-hover:text-blue-500 transition">CTF Writeups</h3>
+              <i class="fa-solid fa-flag text-gray-600 text-2xl group-hover:text-blue-500"></i>
             </div>
-            <p class="text-slate-600 mb-6 text-sm flex-1">
-              Detailed documentation of solved Capture The Flag challenges, focusing on methodology, privilege escalation, and exploitation techniques.
+            <p class="text-gray-400 mb-6 text-sm flex-1 font-light">
+              > Documentation of exploits.<br>
+              > Privilege Escalation methods.<br>
+              > Root access paths.
             </p>
             <div class="flex gap-2 mb-6">
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">Markdown</span>
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">PenTesting</span>
+              <span class="text-xs font-mono text-blue-900">[Markdown]</span>
+              <span class="text-xs font-mono text-blue-900">[Pentest]</span>
             </div>
-            <a href="#" class="w-full text-center py-2 rounded border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition text-sm font-medium">Read Writeups</a>
+            <a href="#" class="w-full text-center py-2 border border-gray-700 text-blue-500 hover:bg-blue-600 hover:text-white transition text-sm font-bold uppercase tracking-wider">
+              Read Logs
+            </a>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full border border-slate-100">
-          <div class="h-2 bg-red-600 w-full"></div>
+        <div class="cyber-card group flex flex-col h-full rounded">
+          <div class="h-1 bg-red-600 w-full shadow-[0_0_10px_red]"></div>
           <div class="p-6 flex-1 flex flex-col">
             <div class="flex justify-between items-start mb-4">
-              <h3 class="font-bold text-xl text-slate-900 group-hover:text-red-600 transition">Vuln Scanner</h3>
-              <i class="fa-solid fa-radar text-slate-300 text-2xl"></i>
+              <h3 class="font-bold text-xl text-white group-hover:text-red-500 transition">Vuln Scanner</h3>
+              <i class="fa-solid fa-radar text-gray-600 text-2xl group-hover:text-red-500"></i>
             </div>
-            <p class="text-slate-600 mb-6 text-sm flex-1">
-              Automated script to detect common web vulnerabilities like Cross-Site Scripting (XSS) and SQL Injection based on payload injection.
+            <p class="text-gray-400 mb-6 text-sm flex-1 font-light">
+              > Automated XSS/SQLi detection.<br>
+              > Payload injection.<br>
+              > Report generation.
             </p>
             <div class="flex gap-2 mb-6">
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">Bash</span>
-              <span class="px-2 py-1 bg-slate-100 text-xs font-semibold rounded text-slate-600">Automation</span>
+              <span class="text-xs font-mono text-red-900">[Bash]</span>
+              <span class="text-xs font-mono text-red-900">[Auto]</span>
             </div>
-            <a href="#" class="w-full text-center py-2 rounded border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition text-sm font-medium">View Code</a>
+            <a href="#" class="w-full text-center py-2 border border-gray-700 text-red-500 hover:bg-red-600 hover:text-white transition text-sm font-bold uppercase tracking-wider">
+              Deploy
+            </a>
           </div>
         </div>
 
@@ -300,94 +421,140 @@
     </div>
   </section>
 
-  <section id="resume" class="py-20 bg-slate-900 text-white text-center">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-6">Ready to collaborate on security projects?</h2>
-      <p class="text-slate-300 mb-8 text-lg">
-        Download my resume to see my full work history and certification details.
+  <section id="resume" class="py-20 bg-gray-900 relative overflow-hidden text-center border-t border-hacker-dim">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj4gPGc+IDxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMSIvPiA8cGF0aCBkPSJNMCAzOGg0MG0tNDAgMWg0MCIgc3Ryb2tlPSIjMDBmZjQxIiBzdHJva2Utb3BhY2l0eT0iMC4xIi8+IDwvZz4gPC9zdmc+')] opacity-20"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <h2 class="text-3xl font-bold text-white mb-6 glitch-text" data-text="COLLABORATION_REQUEST">COLLABORATION_REQUEST</h2>
+      <p class="text-gray-400 mb-8 text-lg">
+        Download encrypted profile details (Resume).
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="Hari resume (1).pdf" download class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-500 transition font-medium flex items-center justify-center gap-2">
-          <i class="fa-solid fa-download"></i> Download Resume
-        </a>
-        <a href="#contact" class="bg-transparent border border-slate-600 text-white px-8 py-3 rounded-lg hover:bg-slate-800 transition font-medium">
-          Contact Me
+        <a href="Hari resume (1).pdf" download class="bg-hacker-green text-black px-8 py-3 rounded hover:bg-white hover:shadow-[0_0_20px_#fff] transition font-bold flex items-center justify-center gap-2 uppercase tracking-widest">
+          <i class="fa-solid fa-download"></i> Download_Data
         </a>
       </div>
     </div>
   </section>
 
-  <footer id="contact" class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
+  <footer id="contact" class="bg-black text-gray-500 py-12 border-t-2 border-hacker-green">
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
       <div>
-        <h4 class="text-white text-xl font-bold mb-4">Hariprasath</h4>
-        <p class="mb-2"><i class="fa-solid fa-envelope mr-2"></i> <a href="mailto:hariprasath90047@gmail.com" class="hover:text-blue-500 transition">hariprasath90047@gmail.com</a></p>
-        <p class="mb-4"><i class="fa-solid fa-phone mr-2"></i> +91 98765 43210</p>
-        <p class="text-sm text-slate-600">&copy; 2025 Hariprasath. Built with Tailwind CSS.</p>
+        <h4 class="text-white text-xl font-bold mb-4 font-mono">> Hariprasath_</h4>
+        <p class="mb-2 hover:text-hacker-green transition cursor-pointer"><i class="fa-solid fa-envelope mr-2"></i> hariprasath90047@gmail.com</p>
+        <p class="mb-4 hover:text-hacker-green transition cursor-pointer"><i class="fa-solid fa-phone mr-2"></i> +91 98765 43210</p>
+        <p class="text-sm text-gray-700">System.exit(0); // &copy; 2025</p>
       </div>
       <div class="flex gap-4 md:justify-end">
-        <a href="https://github.com/heisenberg7077" class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
+        <a href="https://github.com/heisenberg7077" class="w-10 h-10 border border-gray-700 flex items-center justify-center hover:border-hacker-green hover:text-hacker-green hover:shadow-[0_0_10px_#00ff41] transition">
           <i class="fa-brands fa-github"></i>
         </a>
-        <a href="https://www.linkedin.com/in/hari-prasath-3ab198299" class="w-10 h-10 rounded bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition">
+        <a href="https://www.linkedin.com/in/hari-prasath-3ab198299" class="w-10 h-10 border border-gray-700 flex items-center justify-center hover:border-blue-500 hover:text-blue-500 hover:shadow-[0_0_10px_blue] transition">
           <i class="fa-brands fa-linkedin-in"></i>
         </a>
       </div>
     </div>
   </footer>
 
-  <div id="loginPanel" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-300">
-    <div class="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="loginCard">
-      <div class="bg-slate-900 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 text-white font-semibold">
-          <i class="fa-solid fa-lock text-blue-500"></i> Secure Access
+  <div id="loginPanel" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity duration-300">
+    <div class="bg-black border border-hacker-green w-full max-w-md rounded shadow-[0_0_30px_rgba(0,255,65,0.2)] overflow-hidden transform scale-95 transition-transform duration-300 relative" id="loginCard">
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-hacker-green to-transparent animate-pulse"></div>
+      
+      <div class="bg-gray-900/50 px-6 py-4 flex justify-between items-center border-b border-gray-800">
+        <div class="flex items-center gap-2 text-hacker-green font-mono font-semibold">
+          <i class="fa-solid fa-lock"></i> SECURE_SHELL
         </div>
-        <button id="loginClose" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark"></i></button>
+        <button id="loginClose" class="text-gray-500 hover:text-red-500 transition"><i class="fa-solid fa-xmark"></i></button>
       </div>
       
-      <form id="loginForm" class="p-6 space-y-4">
+      <form id="loginForm" class="p-6 space-y-4 font-mono">
         <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+          <label class="block text-xs font-bold text-gray-500 mb-1 uppercase tracking-wider">User ID</label>
           <div class="relative">
-            <i class="fa-solid fa-envelope absolute left-3 top-3 text-slate-400 text-sm"></i>
-            <input id="email" type="email" placeholder="admin@example.com" required 
-                   class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+            <i class="fa-solid fa-envelope absolute left-3 top-3 text-hacker-green text-sm"></i>
+            <input id="email" type="email" placeholder="admin@mainframe" required 
+                   class="w-full pl-10 pr-4 py-2 bg-black border border-gray-700 text-white focus:border-hacker-green focus:shadow-[0_0_10px_#00ff41] outline-none transition" />
           </div>
         </div>
         <div>
-          <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+          <label class="block text-xs font-bold text-gray-500 mb-1 uppercase tracking-wider">Access Key</label>
           <div class="relative">
-            <i class="fa-solid fa-key absolute left-3 top-3 text-slate-400 text-sm"></i>
+            <i class="fa-solid fa-key absolute left-3 top-3 text-hacker-green text-sm"></i>
             <input id="password" type="password" placeholder="••••••••" required 
-                   class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+                   class="w-full pl-10 pr-4 py-2 bg-black border border-gray-700 text-white focus:border-hacker-green focus:shadow-[0_0_10px_#00ff41] outline-none transition" />
           </div>
         </div>
         
         <div class="pt-2">
-          <button type="submit" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 transition font-medium shadow-lg shadow-blue-500/30">
+          <button type="submit" class="w-full bg-hacker-green/10 text-hacker-green border border-hacker-green py-2.5 hover:bg-hacker-green hover:text-black transition font-bold uppercase tracking-widest shadow-lg">
             Authenticate
           </button>
         </div>
 
-        <div class="bg-blue-50 p-3 rounded text-xs text-blue-800 border border-blue-100 flex gap-2 items-start mt-2">
-          <i class="fa-solid fa-info-circle mt-0.5"></i>
+        <div class="bg-gray-900 p-3 text-xs text-gray-400 border border-gray-800 flex gap-2 items-start mt-2">
+          <i class="fa-solid fa-info-circle mt-0.5 text-blue-500"></i>
           <span>
-            <strong>Tech Demo:</strong> Passwords are hashed client-side (SHA-256) before transit.
+            <strong>Info:</strong> Credentials hashed (SHA-256) client-side.
           </span>
         </div>
 
-        <p id="loginError" class="text-sm text-red-600 text-center hidden"></p>
-        <p id="loginStatus" class="text-sm text-green-600 text-center hidden"></p>
+        <p id="loginError" class="text-sm text-red-500 text-center hidden glitch-text" data-text="ACCESS DENIED"></p>
+        <p id="loginStatus" class="text-sm text-hacker-green text-center hidden animate-pulse"></p>
       </form>
     </div>
   </div>
 
   <script>
-    // --- Typewriter Effect ---
-    const words = ["Cybersecurity Analyst", "Ethical Hacker", "Python Developer"];
-    let i = 0;
-    let timer;
+    // --- Matrix Rain Canvas Script ---
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
 
+    // Make canvas full screen
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロヲゴゾドボポ1234567890';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    const rainDrops = [];
+    for (let x = 0; x < columns; x++) {
+      rainDrops[x] = 1;
+    }
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Fade out effect
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F0'; // Neon Green
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < rainDrops.length; i++) {
+        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+        if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          rainDrops[i] = 0;
+        }
+        rainDrops[i]++;
+      }
+    };
+    setInterval(draw, 30);
+    
+    // Resize handler
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+
+    // --- Typewriter Effect ---
+    const words = ["Cyber_Analyst", "Ethical_Hacker", "Python_Dev", "Net_Sec_Admin"];
+    let i = 0;
+    
     function typeWriter() {
       const heading = document.getElementById("typewriter");
       const word = words[i];
@@ -406,9 +573,9 @@
           isDeleting = !isDeleting;
           if (!isDeleting) {
             i = (i + 1) % words.length;
-            setTimeout(typeWriter, 500); // Pause before typing next word
+            setTimeout(typeWriter, 1000); 
           } else {
-            setTimeout(loop, 2000); // Pause before deleting
+            setTimeout(loop, 2000); 
           }
         }
       }
@@ -428,7 +595,7 @@
     }, appearOptions);
     faders.forEach(fader => appearOnScroll.observe(fader));
 
-    // --- Login Logic (Preserved from original) ---
+    // --- Login Logic ---
     async function sha256Hex(message) {
       const msgUint8 = new TextEncoder().encode(message);
       const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
@@ -471,32 +638,28 @@
         errEl.classList.add('hidden');
         statusEl.classList.add('hidden');
 
-        // Simple Validation
         if (!email.includes('@')) {
-          errEl.textContent = 'Please enter a valid email.';
+          errEl.textContent = 'ERROR: INVALID_EMAIL_FORMAT';
           errEl.classList.remove('hidden');
           return;
         }
         if (password.length < 8) {
-          errEl.textContent = 'Password must be at least 8 characters.';
+          errEl.textContent = 'ERROR: KEY_LENGTH_INSUFFICIENT';
           errEl.classList.remove('hidden');
           return;
         }
 
-        // Simulating hash and network delay
         const passwordHash = await sha256Hex(password);
         
-        statusEl.textContent = 'Hashing password & authenticating...';
+        statusEl.textContent = 'ENCRYPTING & UPLOADING...';
         statusEl.classList.remove('hidden');
         
         setTimeout(() => {
-          statusEl.textContent = 'Demo Login Successful!';
-          statusEl.classList.add('text-green-600');
+          statusEl.textContent = 'ACCESS GRANTED';
           setTimeout(closePanel, 1000);
         }, 1500);
       });
 
-      // Close on outside click
       loginPanel.addEventListener('click', (ev) => {
         if (ev.target === loginPanel) closePanel();
       });
@@ -504,5 +667,3 @@
   </script>
 </body>
 </html>
-
-
